@@ -1,4 +1,4 @@
-#learnVue
+##learnVue
 
 The purpose of this repo is to keep track of what I am learning with VUE and firebase.
 
