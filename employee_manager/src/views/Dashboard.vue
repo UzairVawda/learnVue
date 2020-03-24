@@ -7,11 +7,11 @@
       </li>
       <li v-for="employee in employees" v-bind:key="employee.id" class="collection-item">
         <div class="chip">{{employee.dept}}</div>
-        {{employee.employee_id}}:{{employee.name}}
+        {{employee.employee_id}}: {{employee.name}}
 
         <router-link class="secondary-content" v-bind:to="{
-          name: 'viewEmployee',
-          params: {employee_id: employee.employee_id}}">
+            name: 'viewEmployee',
+            params: {employee_id: employee.employee_id}}">
           <i class="fa fa-eye"></i>
         </router-link>
       </li>
@@ -43,9 +43,9 @@ export default {
             const data = {
               id: doc.id,
               employee_id: doc.data().employee_id,
-              name: doc.data().name,
-              dept: doc.data().dept,
-              position: doc.data().position,
+              name: doc.data().name.charAt(0).toUpperCase() + doc.data().name.slice(1),
+              dept: doc.data().dept.charAt(0).toUpperCase() + doc.data().dept.slice(1),
+              position: doc.data().position.charAt(0).toUpperCase() + doc.data().position.slice(1),
             };
             this.employees.push(data);
           });
@@ -60,4 +60,4 @@ export default {
 
 <style>
 
-</style>template
+</style>

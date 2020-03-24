@@ -2,6 +2,9 @@
   <div id="app">
     <Navbar />
     <div class="container">
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
       <router-view  />
     </div>
   </div>
