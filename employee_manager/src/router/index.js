@@ -24,7 +24,7 @@ const routes = [{
   component: EditEmployee,
 },
 {
-  path: '/:emp_id',
+  path: '/:employee_id',
   name: 'viewEmployee',
   component: ViewEmployee,
 },
