@@ -43,7 +43,7 @@ export default {
             const data = {
               id: doc.id,
               employee_id: doc.data().employee_id,
-              name: doc.data().name.charAt(0).toUpperCase() + doc.data().name.slice(1),
+              name: doc.data().name,
               dept: doc.data().dept.charAt(0).toUpperCase() + doc.data().dept.slice(1),
               position: doc.data().position.charAt(0).toUpperCase() + doc.data().position.slice(1),
             };

@@ -14,7 +14,13 @@
     </div>
     <div class="row">
       <div class="col s1">
-        <router-link to="/" class="btn yellow darken-1 waves-effect"> Back </router-link>
+        <router-link to="/" class="btn grey darken-2 waves-effect"> Back </router-link>
+      </div>
+      <div class="col s1">
+        <router-link v-bind:to="{name: 'editEmployee', params: {employee_id: employee_id}}"
+            class="btn light-blue darken-2 waves-effect">
+            Edit
+        </router-link>
       </div>
       <div class="col s1">
         <a @click="deleteEmployee" class="btn deep-orange darken-2 waves-effect">Delete</a>
@@ -44,7 +50,7 @@ export default {
           next((vm) => {
             /* eslint-disable no-param-reassign */
             vm.employee_id = doc.data().employee_id;
-            vm.name = doc.data().name.charAt(0).toUpperCase() + doc.data().name.slice(1);
+            vm.name = doc.data().name;
             vm.dept = doc.data().dept.charAt(0).toUpperCase() + doc.data().dept.slice(1);
             vm.position = doc.data().position.charAt(0).toUpperCase() + doc.data().position.slice(1);
             /* eslint-enable no-param-reassign */
@@ -68,7 +74,8 @@ export default {
         });
     },
     deleteEmployee() {
-      if (window.confirm('Are you sure you want to delete ?')) {
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Are you sure you want to delete?')) {
         db.firestore().collection('employees').where('employee_id', '==', this.$route.params.employee_id).get()
           .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
