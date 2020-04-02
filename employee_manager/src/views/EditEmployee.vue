@@ -88,6 +88,8 @@ export default {
         });
     },
     updateEmployee() {
+      // FIX BELOW ERROR
+      /* eslint-disable-next-line */
       if (window.confirm('Are you sure you want to update?')) {
         db.firestore().collection('employees').where('employee_id', '==', this.$route.params.employee_id).get()
           .then((querySnapshot) => {
@@ -101,7 +103,10 @@ export default {
                 name: 'viewEmployee',
                 params: { employee_id: this.$route.params.employee_id },
               }))
-                .catch((error) => console.log(error));
+                .catch((err) => this.$router.push({
+                  name: 'editEmployee',
+                  params: { error: err },
+                }));
             });
           });
       }

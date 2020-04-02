@@ -23,7 +23,16 @@
         </router-link>
       </div>
       <div class="col s1">
-        <a @click="deleteEmployee" class="btn deep-orange darken-2 waves-effect">Delete</a>
+        <a @click="deleteEmployee" class="btn deep-orange darken-2 waves-effect modal-trigger" href="#modal1">Delete</a>
+      </div>
+    </div>
+    <div id="modal1" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
       </div>
     </div>
   </div>
