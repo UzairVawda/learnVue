@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 
 firebase.initializeApp(fConfig);
 // eslint-disable-next-line no-unused-vars
-const db = firebase.firestore();
+export const db = firebase.firestore();
 
 new Vue({
     vuetify,
