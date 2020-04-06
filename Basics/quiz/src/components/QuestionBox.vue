@@ -7,12 +7,14 @@
 
 			<hr class="my-4">
 			
-			<b-list-group 
-				v-for="(answer, index) in answers" 
-				:key="index" 
-				@click="selectAnswer(index)"
-				:class="[selectedIndex === index ? 'selected' : '']">
-				<b-list-group-item> {{ answer }} </b-list-group-item>
+			<b-list-group>
+				<b-list-group-item
+					v-for="(answer, index) in answers" 
+					@click="selectAnswer(index)"
+					:key="index" 
+					:class="answerClass(index)">
+				{{ answer }}
+				</b-list-group-item>
 			</b-list-group>
 			
 			<br>
@@ -82,7 +84,18 @@ export default {
 			if (this.selectedIndex === this.correctIndex) {
 				isCorrect = true
 			}
+			this.answered = true
 			this.increment(isCorrect);
+		}, 
+		answerClass: function(index) {
+			let answerClass = ''
+			
+			if (!this.answered && this.selectedIndex === index) { answerClass = 'selected' }  
+			else if (this.answered && this.correctIndex === index) { answerClass =  'correct' }
+			else if (this.answered && this.selectedIndex === index && this.correctIndex !== index) { 
+				answerClass = 'incorrect' }
+			
+			return answerClass
 		}
 	}
 }
