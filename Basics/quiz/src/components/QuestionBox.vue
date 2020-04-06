@@ -2,7 +2,7 @@
 	<div>
 		<b-jumbotron>
 			<template v-slot:lead>
-				{{ currentQuestion.question }}
+				#{{count}}.{{ currentQuestion.question }}
 			</template>
 
 			<hr class="my-4">
@@ -28,6 +28,7 @@
 			<b-button 
 				variant="success"
 				@click="next"
+				v-if="answered === true"
 			>Next</b-button>
 
 		</b-jumbotron>
@@ -46,7 +47,8 @@ export default {
 			selectedIndex: null,
 			correctIndex: null,
 			shuffledAnswers: [],
-			answered: false
+			answered: false,
+			count: 0,
 		}
 	},
 	computed: {
@@ -94,7 +96,7 @@ export default {
 			else if (this.answered && this.correctIndex === index) { answerClass =  'correct' }
 			else if (this.answered && this.selectedIndex === index && this.correctIndex !== index) { 
 				answerClass = 'incorrect' }
-			
+			this.count++
 			return answerClass
 		}
 	}
