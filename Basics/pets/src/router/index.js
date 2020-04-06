@@ -14,7 +14,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/pets',
+    path: '/pets/:pid',
     name: 'Pets',
     component: Pets
   },
