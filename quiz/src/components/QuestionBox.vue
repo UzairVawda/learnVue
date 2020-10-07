@@ -10,17 +10,18 @@
 			<b-list-group v-for="(answer, index) in shuffledAnswers" v-bind:key="index">
 				<b-list-group-item
 					@click="selectAnswer(index)"
-					v-bind:class="[ selectedAnswer === index ? 'selected' : '' ]"
+					v-bind:class="answerClass(index)"
 				>{{ answer }}</b-list-group-item>
 			</b-list-group>
 
 			<b-button variant="primary"
 				@click="submitAnswer"
-				v-bind:disabled="selectedAnswer === null || isNaN(selectedAnswer)"
+				:disabled="selectedAnswer == null || answered"
 			>Submit</b-button>
 
 			<b-button variant="success" 
 				@click="nextQuestion"
+				:disabled="answered == false"
 			>Next Question</b-button>
 		</b-jumbotron>
 	</div>
@@ -40,7 +41,8 @@ export default {
 			selectedAnswer: null,
 			shuffledAnswers: [],
 			correctIndex: 0,
-			answered: false
+			answered: false,
+			selectedBoolean: false
 		}
 	},
 	computed: {
@@ -55,6 +57,7 @@ export default {
 			immediate: true,
 			handler(){
 				this.selectedAnswer = null
+				this.answered = false
 				this.shuffleAnswers()
 			}
 		}
@@ -62,6 +65,7 @@ export default {
 	methods: {
 		selectAnswer(index) {
 			this.selectedAnswer = index
+			this.selectedBoolean = true
 		},
 		submitAnswer() {
 			var isCorrect = false
@@ -73,10 +77,20 @@ export default {
 			this.answered = true
 		},
 		shuffleAnswers() {
-			console.log(isNaN(this.selectedAnswer))
 			let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
 			this.shuffledAnswers = _.shuffle(answers)
 			this.correctIndex = this.shuffledAnswers.indexOf(this.currentQuestion.correct_answer)
+		},
+		answerClass(index) {
+			let answerClass = ''
+			if (!this.answered && this.selectedAnswer === index) {
+				answerClass = 'selected'
+			} else if (this.answered && this.correctIndex === index) {
+				answerClass = 'correct'
+			} else if (this.answered && this.selectedAnswer === index && this.correctIndex) {
+				answerClass = 'incorrect'
+			}
+			return answerClass	
 		}
 	}
 }

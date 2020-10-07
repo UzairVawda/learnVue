@@ -3,8 +3,9 @@
     <Header 
       v-bind:numberOfCorrect="numberOfCorrect"
       v-bind:numberTotal="numberTotal"
+      v-bind:question="questions"
     />
-    <b-container class="bv-example-row">
+    <b-container class="bv-example-row" v-if="numberTotal != 2">
       <b-row>
         <b-col sm="8" offset="2">    
           <QuestionBox 
@@ -16,18 +17,30 @@
         </b-col>
       </b-row>
     </b-container>
+    <b-container class="bv-example-row" v-else>
+      <b-row>
+        <b-col sm="8" offset="2">    
+          <Completed 
+            v-bind:numberOfCorrect="numberOfCorrect"
+            v-bind:numberTotal="numberTotal"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import QuestionBox from './components/QuestionBox.vue'
+import Completed from './components/Completed.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     QuestionBox,
+    Completed
   },
   data() {
     return {
@@ -57,7 +70,6 @@ export default {
       return await response.json()
     })
     .then((jsonData) => {
-      console.log(jsonData)
       this.questions = jsonData.results
     })
   }
